@@ -1,0 +1,54 @@
+### Build Folders ###
+target/
+build/
+
+### Maven Wrapper ###
+.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse/STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Logs ###
+*.log
+
+### OS Files ###
+.DS_Store
+Thumbs.db
+
+### Temporary Files ###
+*.tmp
+*.temp
+*.swp
+*.swo
+
+### Exclusions ###
+# Allow Maven wrapper jar file
+!.mvn/wrapper/maven-wrapper.jar
+
+# Prevent ignoring target/build directories in src folders
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
