@@ -34,4 +34,36 @@ public class StudentResponseEntityExceptionHandler extends ResponseEntityExcepti
                 .errorTime(LocalDateTime.now())
                 .build());
     }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<ErrorResponseDTO> handleDatabaseException(DatabaseException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponseDTO.builder()
+                .apiPath(request.getDescription(false))
+                .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .errorMessage(ex.getMessage())
+                .errorTime(LocalDateTime.now())
+                .build());
+    }
+
+    @ExceptionHandler(StudentNotExistException.class)
+    public ResponseEntity<ErrorResponseDTO> handleStudentNotExistException(StudentNotExistException ex,
+                                                                           WebRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDTO.builder()
+                .apiPath(request.getDescription(false))
+                .httpStatus(HttpStatus.NOT_FOUND)
+                .errorMessage(ex.getMessage())
+                .errorTime(LocalDateTime.now())
+                .build());
+    }
+
+    @ExceptionHandler(UpdateFailedException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUpdateFailedException(UpdateFailedException ex,
+                                                                        WebRequest request) {
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(ErrorResponseDTO.builder()
+                .apiPath(request.getDescription(false))
+                .httpStatus(HttpStatus.EXPECTATION_FAILED)
+                .errorMessage(ex.getMessage())
+                .errorTime(LocalDateTime.now())
+                .build());
+    }
 }

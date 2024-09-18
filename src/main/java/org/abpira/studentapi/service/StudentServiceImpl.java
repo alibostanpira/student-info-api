@@ -3,11 +3,15 @@ package org.abpira.studentapi.service;
 import lombok.RequiredArgsConstructor;
 import org.abpira.studentapi.dto.StudentDTO;
 import org.abpira.studentapi.entity.Student;
+import org.abpira.studentapi.exception.DatabaseException;
 import org.abpira.studentapi.exception.StudentAlreadyExistsException;
+import org.abpira.studentapi.exception.StudentNotExistException;
+import org.abpira.studentapi.exception.UpdateFailedException;
 import org.abpira.studentapi.mapper.StudentMapper;
 import org.abpira.studentapi.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,21 +32,51 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentDTO> getAllStudents() {
-        return List.of();
+        try {
+            return studentRepository.findAll()
+                    .stream()
+                    .map(StudentMapper::mapToStudentDTO)
+                    .toList();
+        } catch (DatabaseException e) {
+            throw new DatabaseException("Database access error while fetching students", e);
+        }
     }
 
     @Override
-    public StudentDTO getStudentById(String email) {
-        return null;
+    public StudentDTO getStudentByEmail(String email) {
+        Student student = studentRepository.findByEmail(email).orElseThrow(
+                () -> new StudentNotExistException("Student with email " + email + " does not exist")
+        );
+        return StudentMapper.mapToStudentDTO(student);
     }
 
     @Override
-    public void updateStudent(StudentDTO studentDTO) {
-
+    public void updateStudent(String email, StudentDTO studentDTO) {
+        if (studentDTO != null) {
+            Student student = studentRepository.findByEmail(email).orElseThrow(
+                    () -> new StudentNotExistException("Student with email " + studentDTO.getEmail() +
+                            " and name " + studentDTO.getFirstName() + " " +
+                            studentDTO.getLastName() + " does not exist")
+            );
+            student.setFirstName(studentDTO.getFirstName());
+            student.setLastName(studentDTO.getLastName());
+            student.setEmail(studentDTO.getEmail());
+            student.setAge(studentDTO.getAge());
+            student.setGradeLevel(studentDTO.getGradeLevel());
+            student.setUpdatedAt(LocalDateTime.now());
+            student.setUpdatedBy("Anonymous");
+            studentRepository.save(student);
+        } else {
+            throw new UpdateFailedException("Student info does not updated");
+        }
     }
 
     @Override
     public void deleteStudent(String email) {
-
+        if (studentRepository.findByEmail(email).isPresent()) {
+            studentRepository.deleteByEmail(email);
+        } else {
+            throw new StudentNotExistException("Student with email " + email + " does not exist");
+        }
     }
 }

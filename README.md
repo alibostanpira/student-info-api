@@ -51,9 +51,9 @@ mvn spring-boot:run
 ### API Endpoints
 * POST /api/students: Create a new student record.
 * GET /api/students: Retrieve all student records.
-* GET /api/students/{id}: Retrieve a student record by ID.
-* PUT /api/students/{id}: Update a student record by ID.
-* DELETE /api/students/{id}: Delete a student record by ID.
+* GET /api/students/{email}: Retrieve a student record by email.
+* PUT /api/students/{email}: Update a student record by email.
+* DELETE /api/students/{email}: Delete a student record by email.
 
 ### Contributing
 Contributions are welcome! Please follow the guidelines for contributing and submit a pull request for any improvements or bug fixes.
