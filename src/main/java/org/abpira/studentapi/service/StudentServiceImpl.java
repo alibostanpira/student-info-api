@@ -2,6 +2,7 @@ package org.abpira.studentapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.abpira.studentapi.dto.StudentDTO;
+import org.abpira.studentapi.entity.Student;
 import org.abpira.studentapi.exception.StudentAlreadyExistsException;
 import org.abpira.studentapi.mapper.StudentMapper;
 import org.abpira.studentapi.repository.StudentRepository;
