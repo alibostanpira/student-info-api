@@ -2,19 +2,18 @@ package org.abpira.studentapi.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @Column(name = "created_by", nullable = false, updatable = false)
     private String createdBy;

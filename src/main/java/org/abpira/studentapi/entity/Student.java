@@ -5,16 +5,16 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@SuperBuilder
 @Getter
 @Setter
+@NoArgsConstructor
+@SuperBuilder
 public class Student extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id", nullable = false, unique = true)
+    @Setter(AccessLevel.NONE)
     private Long studentId;
 
     @Column(name = "first_name", nullable = false)

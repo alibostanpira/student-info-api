@@ -34,7 +34,7 @@ git clone https://github.com/yourusername/student-info-api.git
 
 2. Configure the Database: Update `src/main/resources/application.properties` with your MySQL database credentials:
 ```
-spring.datasource.url=jdbc:mysql://localhost:3306/studentdb
+spring.datasource.url=jdbc:mysql://localhost:3306/student_db
 spring.datasource.username=root
 spring.datasource.password=yourpassword
 spring.jpa.hibernate.ddl-auto=update
